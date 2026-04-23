@@ -30,7 +30,7 @@ def process_query(query, memory, qa_chain):
     if intent == "reassurance":
         cleaned = [" ".join(q.lower().split()) for q in memory["history"]]
 
-        print("CLEANED HISTORY:", cleaned)
+        
 
         last = cleaned[-1]
         count = cleaned.count(last)
