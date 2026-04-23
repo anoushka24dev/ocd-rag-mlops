@@ -38,16 +38,32 @@ memory = {}
 @app.post("/chat")
 def chat(query: str):
 
+    embedding_model = HuggingFaceEmbeddings(
+        model_name="all-MiniLM-L6-v2"
+    )
+
+    vector_db = Chroma(
+        persist_directory="chroma_db",
+        embedding_function=embedding_model
+    )
+
+    retriever = vector_db.as_retriever(search_kwargs={"k":5})
+
+    llm = Ollama(model="mistral")
+
+    qa_chain = RetrievalQA.from_chain_type(
+        llm=llm,
+        retriever=retriever,
+        return_source_documents=True
+    )
+
     response = process_query(
         query,
         memory,
         qa_chain
     )
 
-    return {
-        "response": response
-    }
-
+    return {"response": response}
 import os
 import uvicorn
 
