@@ -9,7 +9,7 @@ def clean_text(text):
 def detect_risk(query):
     q = clean_text(query)
 
-    # 🔴 High risk (flexible matching)
+    # High risk (flexible matching)
     if (
         "harm" in q
         or "hurt" in q
@@ -17,7 +17,7 @@ def detect_risk(query):
     ):
         return "high"
 
-    # 🟡 Distress detection
+    #  Distress detection
     distress_keywords = [
         "i cant take this",
         "i feel trapped",
