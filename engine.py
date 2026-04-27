@@ -1,8 +1,9 @@
-from modules.intent import detect_intent
+from modules.intentM1 import detect_intent
 from modules.reassurance import handle_reassurance
 from modules.compulsions import handle_compulsion
 from modules.risk import detect_risk, crisis_response
 from modules.patterns import detect_patterns, reflect_progress
+from modules.responses import get_specific_response
 
 
 def process_query(query, memory, qa_chain):
@@ -27,7 +28,7 @@ def process_query(query, memory, qa_chain):
     # 🔹 Step 2: Intent detection
     intent = detect_intent(query)
     print("INTENT:", intent)
-    if intent == "reassurance":
+    if intent == "Reassurance":
         cleaned = [" ".join(q.lower().split()) for q in memory["history"]]
 
         
@@ -52,9 +53,8 @@ def process_query(query, memory, qa_chain):
         return response
 
       # COMPULSION FLOW
-    if intent == "compulsion":
-        response = handle_compulsion(query, memory)
-
+    if intent == "Compulsion":
+        response = get_specific_response(query)
         pattern = detect_patterns(memory)
         progress = reflect_progress(memory)
 

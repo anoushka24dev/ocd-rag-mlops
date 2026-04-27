@@ -36,4 +36,4 @@ def clean_text(text):
 def detect_intent(query):
     q = clean_text(query)
     prediction = pipeline.predict([q])[0]
-    return prediction.lower()
+    return prediction
